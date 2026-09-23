@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.oscar.danmaku.Bullets.Bullet;
 import com.oscar.danmaku.Bullets.BulletManager;
+import com.oscar.danmaku.Entities.Enemy;
 import com.oscar.danmaku.Entities.Player;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
@@ -19,14 +20,17 @@ public class Main extends ApplicationAdapter {
     private Player player;
     private ShapeRenderer shapeRenderer;
     private BulletManager bulletManager;
+    private Enemy enemy;
 
     @Override
     public void create() {
 
         shapeRenderer = new ShapeRenderer();
 
-        player = new Player(300, 400, 20, 20);
+        player = new Player(300, 100, 20, 20, 250f, "player", 100, 100, 10, 10);
         bulletManager = new BulletManager();
+
+        enemy = new Enemy(300, 300, 20, 20, 250f, "enemy", 100, 100, 10, 10);
     }
 
     @Override
@@ -37,6 +41,8 @@ public class Main extends ApplicationAdapter {
         float delta = Gdx.graphics.getDeltaTime();
 
         player.move(delta);
+
+        enemy.move(delta);
 
         bulletManager.update(delta);
 
@@ -53,6 +59,13 @@ public class Main extends ApplicationAdapter {
         shapeRenderer.rect(
             player.getX(),
             player.getY(),
+            20,
+            20
+        );
+
+        shapeRenderer.rect(
+            enemy.getX(),
+            enemy.getY(),
             20,
             20
         );
