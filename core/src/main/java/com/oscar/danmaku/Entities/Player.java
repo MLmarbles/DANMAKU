@@ -2,6 +2,7 @@ package com.oscar.danmaku.Entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.math.MathUtils;
 
 public class Player {
     private float x;
@@ -32,28 +33,23 @@ public class Player {
         float height = Gdx.graphics.getHeight();
 
         if (Gdx.input.isKeyPressed(Input.Keys.W)) {
-            if (!(speed + (y + playerHeight/2) >= height)) {
-                y += speed * delta;
-            }
+            y += speed * delta;
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-            if (!(speed - (x - playerWidth/2) <= 0)) {
-                x -= speed * delta;
-            }
+            x -= speed * delta;
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.S)) {
-            if (!(speed - (y - playerHeight/2) <= 0)) {
-                y -= speed * delta;
-            }
+            y -= speed * delta;
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-            if (!(speed + (x + playerWidth/2) >= width)) {
-                x += speed * delta;
-            }
+            x += speed * delta;
         }
+
+        x = MathUtils.clamp(x, playerWidth / 2, width - (playerWidth / 2));
+        y = MathUtils.clamp(y, playerHeight / 2, height - (playerHeight / 2));
     }
 
 
