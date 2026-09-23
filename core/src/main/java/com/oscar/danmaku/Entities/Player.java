@@ -52,5 +52,14 @@ public class Player {
         y = MathUtils.clamp(y, playerHeight / 2, height - (playerHeight / 2));
     }
 
+    public boolean isShooting() {
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+            return true;
+        }
+
+        return false;
+    }
+
 
 }

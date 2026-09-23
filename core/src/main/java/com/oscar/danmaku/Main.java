@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.oscar.danmaku.Bullets.Bullet;
+import com.oscar.danmaku.Bullets.BulletManager;
 import com.oscar.danmaku.Entities.Player;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
@@ -17,7 +18,7 @@ public class Main extends ApplicationAdapter {
 
     private Player player;
     private ShapeRenderer shapeRenderer;
-    private Bullet bullet;
+    private BulletManager bulletManager;
 
     @Override
     public void create() {
@@ -25,8 +26,7 @@ public class Main extends ApplicationAdapter {
         shapeRenderer = new ShapeRenderer();
 
         player = new Player(300, 400, 20, 20);
-
-        bullet = new Bullet(player.getX(), player.getY(), 5, 2, 2);
+        bulletManager = new BulletManager();
     }
 
     @Override
@@ -34,7 +34,21 @@ public class Main extends ApplicationAdapter {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        float delta = Gdx.graphics.getDeltaTime();
+
+        player.move(delta);
+
+        bulletManager.update(delta);
+
+        if (player.isShooting()) {
+            Bullet bullet = new Bullet(player.getX(), player.getY(), 400, 2, 2);
+
+            bulletManager.addBullet(bullet);
+        }
+
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+
+        bulletManager.render(shapeRenderer);
 
         shapeRenderer.rect(
             player.getX(),
@@ -43,29 +57,11 @@ public class Main extends ApplicationAdapter {
             20
         );
 
-        shapeRenderer.rect(
-            bullet.getX(),
-            bullet.getY(),
-            2,
-            2
-        );
-
         shapeRenderer.end();
-
-        float delta = Gdx.graphics.getDeltaTime();
-
-        player.move(delta);
-
-        bullet.shoot(delta);
-
-        if (bullet.isOffScreen()) {
-            System.out.println("BULLET OFF SCREEN");
-        }
     }
 
     @Override
     public void dispose() {
-        batch.dispose();
-        image.dispose();
+        shapeRenderer.dispose();
     }
 }

@@ -26,7 +26,15 @@ public class Bullet {
         return y;
     }
 
-    public void shoot(float delta) {
+    public float getWidth() {
+        return width;
+    }
+
+    public float getHeight() {
+        return height;
+    }
+
+    public void move(float delta) {
         y += speed*delta;
     }
 
