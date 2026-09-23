@@ -4,53 +4,53 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.MathUtils;
 
-public class Player {
-    private float x;
-    private float y;
-    private float speed = 250f;
+public class Player extends Entity{
 
-    private float playerWidth;
-    private float playerHeight;
+    public Player(float x, float y, float entityWidth, float entityHeight, float speed, String name, float health, float maxHealth, float defence, float attackPower){
 
-    public Player(float x, float y, float playerWidth, float playerHeight){
-        this.x = x;
-        this.y = y;
-        this.playerWidth = playerWidth;
-        this.playerHeight = playerHeight;
+        super(x, y, entityWidth, entityHeight, speed, name, health, maxHealth, defence, attackPower);
     }
 
-    public float getX() {
-        return x;
-    }
-
-    public float getY() {
-        return y;
-    }
 
     public void move(float delta) {
 
         float width = Gdx.graphics.getWidth();
         float height = Gdx.graphics.getHeight();
 
+        float xMovement = 0;
+        float yMovement = 0;
+
         if (Gdx.input.isKeyPressed(Input.Keys.W)) {
-            y += speed * delta;
+            yMovement += getSpeed() * delta;
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-            x -= speed * delta;
+            xMovement -= getSpeed() * delta;
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.S)) {
-            y -= speed * delta;
+            yMovement -= getSpeed() * delta;
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-            x += speed * delta;
+            xMovement += getSpeed() * delta;
         }
 
-        x = MathUtils.clamp(x, playerWidth / 2, width - (playerWidth / 2));
-        y = MathUtils.clamp(y, playerHeight / 2, height - (playerHeight / 2));
+        super.move(xMovement, yMovement);
+
+        setX(MathUtils.clamp(
+            getX(),
+            getEntityWidth() / 2,
+            width - getEntityWidth() / 2
+        ));
+
+        setY(MathUtils.clamp(
+            getY(),
+            getEntityHeight() / 2,
+            height - getEntityHeight() / 2
+        ));
     }
+
 
     public boolean isShooting() {
 
