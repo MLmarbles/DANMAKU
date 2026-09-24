@@ -52,11 +52,8 @@ public class Main extends ApplicationAdapter {
 
         float delta = Gdx.graphics.getDeltaTime();
 
-        player.move(delta);
-        enemy.move(delta);
-
         bulletManager.update(delta);
-        entityManager.update();
+        entityManager.update(delta);
 
         collisionSystem.inspectCollision(bulletManager, player);
         collisionSystem.inspectCollision(bulletManager, enemy);

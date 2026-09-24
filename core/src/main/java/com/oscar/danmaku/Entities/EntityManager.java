@@ -23,12 +23,14 @@ public class EntityManager {
         entities.remove(entity);
     }
 
-    public void update() {
+    public void update(float delta) {
 
         Iterator<Entity> iterator = entities.iterator();
 
         while (iterator.hasNext()) {
             Entity entity = iterator.next();
+
+            entity.update(delta);
 
             if (entity.getHealth() <= 0) {
                 iterator.remove();

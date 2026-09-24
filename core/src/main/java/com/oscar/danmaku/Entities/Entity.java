@@ -34,6 +34,8 @@ public abstract class Entity{
         this.faction = faction;
     }
 
+    public abstract void update(float delta);
+
     public float getX() {
         return x;
     }

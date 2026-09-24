@@ -61,5 +61,8 @@ public class Player extends Entity{
         return false;
     }
 
-
+    @Override
+    public void update(float delta) {
+        move(delta);
+    }
 }

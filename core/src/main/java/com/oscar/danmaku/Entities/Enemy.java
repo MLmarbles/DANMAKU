@@ -36,4 +36,9 @@ public class Enemy extends Entity {
 
         return false;
     }
+
+    @Override
+    public void update(float delta) {
+        move(delta);
+    }
 }
