@@ -2,6 +2,7 @@ package com.oscar.danmaku.Bullets;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
+import com.oscar.danmaku.Entities.Faction;
 
 public class Bullet {
     private float x;
@@ -9,13 +10,15 @@ public class Bullet {
     private float speed;
     private float width;
     private float height;
+    private Faction faction;
 
-    public Bullet(float x, float y, float speed, float width, float height){
+    public Bullet(float x, float y, float speed, float width, float height, Faction faction){
         this.x = x;
         this.y = y;
         this.speed = speed;
         this.width = width;
         this.height = height;
+        this.faction = faction;
     }
 
     public float getX() {
@@ -32,6 +35,10 @@ public class Bullet {
 
     public float getHeight() {
         return height;
+    }
+
+    public Faction getFaction() {
+        return faction;
     }
 
     public void move(float delta) {

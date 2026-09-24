@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.oscar.danmaku.Bullets.Bullet;
 import com.oscar.danmaku.Bullets.BulletManager;
 import com.oscar.danmaku.Entities.Enemy;
+import com.oscar.danmaku.Entities.Faction;
 import com.oscar.danmaku.Entities.Player;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
@@ -47,7 +48,7 @@ public class Main extends ApplicationAdapter {
         bulletManager.update(delta);
 
         if (player.isShooting()) {
-            Bullet bullet = new Bullet(player.getX(), player.getY(), 400, 2, 2);
+            Bullet bullet = new Bullet(player.getX(), player.getY(), 400, 2, 2, Faction.PLAYER);
 
             bulletManager.addBullet(bullet);
         }

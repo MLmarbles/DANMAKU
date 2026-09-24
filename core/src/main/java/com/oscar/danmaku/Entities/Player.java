@@ -40,14 +40,14 @@ public class Player extends Entity{
 
         setX(MathUtils.clamp(
             getX(),
-            getEntityWidth() / 2,
-            width - getEntityWidth() / 2
+            getWidth() / 2,
+            width - getWidth() / 2
         ));
 
         setY(MathUtils.clamp(
             getY(),
-            getEntityHeight() / 2,
-            height - getEntityHeight() / 2
+            getHeight() / 2,
+            height - getHeight() / 2
         ));
     }
 

@@ -14,14 +14,14 @@ public abstract class Entity{
     private float y;
     private float speed;
 
-    private float entityWidth;
-    private float entityHeight;
+    private float width;
+    private float height;
 
-    public Entity(float x, float y, float entityWidth, float entityHeight, float speed, String name, float health, float maxHealth, float defence, float attackPower) {
+    public Entity(float x, float y, float width, float height, float speed, String name, float health, float maxHealth, float defence, float attackPower) {
         this.x = x;
         this.y = y;
-        this.entityWidth = entityWidth;
-        this.entityHeight = entityHeight;
+        this.width = width;
+        this.height = height;
         this.speed = speed;
 
         this.name = name;
@@ -51,12 +51,12 @@ public abstract class Entity{
         return speed;
     }
 
-    public float getEntityWidth() {
-        return entityWidth;
+    public float getWidth() {
+        return width;
     }
 
-    public float getEntityHeight() {
-        return entityHeight;
+    public float getHeight() {
+        return height;
     }
 
     public void move(float xAmount, float yAmount) {
@@ -64,4 +64,14 @@ public abstract class Entity{
         y += yAmount;
     }
 
+    public void takeDamage(float amount) {
+        health = Math.max(0, health - amount);
+    }
+
+    public boolean isDead() {
+        if (health <= 0) {
+            return true;
+        }
+        return false;
+    }
 }
