@@ -66,6 +66,10 @@ public abstract class Entity{
         return faction;
     }
 
+    public float getHealth() {
+        return health;
+    }
+
     public void move(float xAmount, float yAmount) {
         x += xAmount;
         y += yAmount;
@@ -80,5 +84,9 @@ public abstract class Entity{
             return true;
         }
         return false;
+    }
+
+    public void shoot() {
+
     }
 }

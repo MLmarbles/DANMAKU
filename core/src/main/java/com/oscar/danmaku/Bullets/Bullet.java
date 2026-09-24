@@ -10,14 +10,20 @@ public class Bullet {
     private float width;
     private float height;
     private Faction faction;
+    private float damage;
+    private float directionX;
+    private float directionY;
 
-    public Bullet(float x, float y, float speed, float width, float height, Faction faction){
+    public Bullet(float x, float y, float speed, float width, float height, Faction faction, float damage, float directionX, float directionY){
         this.x = x;
         this.y = y;
         this.speed = speed;
         this.width = width;
         this.height = height;
         this.faction = faction;
+        this.damage = damage;
+        this.directionX = directionX;
+        this.directionY = directionY;
     }
 
     public float getX() {
@@ -40,8 +46,13 @@ public class Bullet {
         return faction;
     }
 
+    public float getDamage() {
+        return damage;
+    }
+
     public void move(float delta) {
-        y += speed*delta;
+        x += directionX * speed * delta;
+        y += directionY * speed * delta;
     }
 
     public boolean isOffScreen() {

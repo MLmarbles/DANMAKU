@@ -48,9 +48,11 @@ public class Main extends ApplicationAdapter {
         bulletManager.update(delta);
 
         if (player.isShooting()) {
-            Bullet bullet = new Bullet(player.getX(), player.getY(), 400, 2, 2, Faction.PLAYER);
+            bulletManager.spawn(player.getX(), player.getY(), 400, 2, 2, Faction.PLAYER, 10, 0, 1);
+        }
 
-            bulletManager.addBullet(bullet);
+        if (enemy.shouldShoot()) {
+            bulletManager.spawn(enemy.getX(), enemy.getY(), 400, 2, 2, Faction.ENEMY, 10, 0, -1);
         }
 
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);

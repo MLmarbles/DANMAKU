@@ -1,5 +1,6 @@
 package com.oscar.danmaku.Systems;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.math.Rectangle;
@@ -28,5 +29,22 @@ public class CollisionSystem {
     
     public void inspectCollision(BulletManager bulletManager, Entity entity) {
         
+        List<Bullet> bullets = bulletManager.getBullets();
+
+        List<Bullet> bulletsToRemove = new ArrayList<>();
+
+        for (Bullet bullet : bullets) {
+            if (bullet.getFaction() != entity.getFaction()) {
+                if (overlaps(bullet, entity)) {
+                    entity.takeDamage(bullet.getDamage());
+                    bulletsToRemove.add(bullet);
+                    System.out.println(entity.getHealth());
+                }
+            }
+        }
+
+        for (Bullet bullet : bulletsToRemove) {
+            bulletManager.removeBullet(bullet);
+        }
     }
 }
