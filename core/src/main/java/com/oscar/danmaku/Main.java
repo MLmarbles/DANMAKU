@@ -28,10 +28,10 @@ public class Main extends ApplicationAdapter {
 
         shapeRenderer = new ShapeRenderer();
 
-        player = new Player(300, 100, 20, 20, 250f, "player", 100, 100, 10, 10);
+        player = new Player(300, 100, 20, 20, 250f, "player", 100, 100, 10, 10, Faction.PLAYER);
         bulletManager = new BulletManager();
 
-        enemy = new Enemy(300, 300, 20, 20, 250f, "enemy", 100, 100, 10, 10);
+        enemy = new Enemy(300, 300, 20, 20, 250f, "enemy", 100, 100, 10, 10, Faction.ENEMY);
     }
 
     @Override

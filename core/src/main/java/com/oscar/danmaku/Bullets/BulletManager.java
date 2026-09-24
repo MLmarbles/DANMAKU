@@ -1,6 +1,7 @@
 package com.oscar.danmaku.Bullets;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -13,6 +14,10 @@ public class BulletManager {
 
     public BulletManager() {
         bullets = new ArrayList<>();
+    }
+
+    public List<Bullet> getBullets() {
+        return Collections.unmodifiableList(bullets);
     }
 
     public void addBullet(Bullet bullet) {

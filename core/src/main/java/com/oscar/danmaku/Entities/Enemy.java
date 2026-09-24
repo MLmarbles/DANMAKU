@@ -8,9 +8,9 @@ public class Enemy extends Entity {
     private float time;
     private float amplitude = 50f;
     
-    public Enemy(float x, float y, float entityWidth, float entityHeight, float speed, String name, float health, float maxHealth, float defence, float attackPower){
+    public Enemy(float x, float y, float entityWidth, float entityHeight, float speed, String name, float health, float maxHealth, float defence, float attackPower, Faction faction){
 
-        super(x, y, entityWidth, entityHeight, speed, name, health, maxHealth, defence, attackPower);
+        super(x, y, entityWidth, entityHeight, speed, name, health, maxHealth, defence, attackPower, faction);
 
         baseY = y;
     }

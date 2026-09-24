@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.oscar.danmaku.Bullets.Bullet;
+import com.oscar.danmaku.Bullets.BulletManager;
 import com.oscar.danmaku.Entities.Entity;
 
 public class CollisionSystem {
@@ -25,7 +26,7 @@ public class CollisionSystem {
         return false;
     }
     
-    public void inspectCollision(List<Bullet> bullets) {
+    public void inspectCollision(BulletManager bulletManager, Entity entity) {
         
     }
 }

@@ -1,7 +1,6 @@
 package com.oscar.danmaku.Bullets;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.MathUtils;
 import com.oscar.danmaku.Entities.Faction;
 
 public class Bullet {
@@ -57,7 +56,7 @@ public class Bullet {
             return true;
         }
 
-        if (x - (height/2) < 0) {
+        if (x - (width/2) < 0) {
             return true;
         }
 

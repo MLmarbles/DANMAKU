@@ -6,9 +6,9 @@ import com.badlogic.gdx.math.MathUtils;
 
 public class Player extends Entity{
 
-    public Player(float x, float y, float entityWidth, float entityHeight, float speed, String name, float health, float maxHealth, float defence, float attackPower){
+    public Player(float x, float y, float entityWidth, float entityHeight, float speed, String name, float health, float maxHealth, float defence, float attackPower, Faction faction){
 
-        super(x, y, entityWidth, entityHeight, speed, name, health, maxHealth, defence, attackPower);
+        super(x, y, entityWidth, entityHeight, speed, name, health, maxHealth, defence, attackPower, faction);
     }
 
 

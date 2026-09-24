@@ -17,7 +17,9 @@ public abstract class Entity{
     private float width;
     private float height;
 
-    public Entity(float x, float y, float width, float height, float speed, String name, float health, float maxHealth, float defence, float attackPower) {
+    private Faction faction;
+
+    public Entity(float x, float y, float width, float height, float speed, String name, float health, float maxHealth, float defence, float attackPower, Faction faction) {
         this.x = x;
         this.y = y;
         this.width = width;
@@ -29,6 +31,7 @@ public abstract class Entity{
         this.maxHealth = maxHealth;
         this.defence = defence;
         this.attackPower = attackPower;
+        this.faction = faction;
     }
 
     public float getX() {
@@ -57,6 +60,10 @@ public abstract class Entity{
 
     public float getHeight() {
         return height;
+    }
+
+    public Faction getFaction() {
+        return faction;
     }
 
     public void move(float xAmount, float yAmount) {
