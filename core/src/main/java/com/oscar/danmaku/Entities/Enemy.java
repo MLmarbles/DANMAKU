@@ -10,9 +10,9 @@ public class Enemy extends Entity {
     private float shootTimer;
     private float shootInterval = 1.0f;
     
-    public Enemy(float x, float y, float entityWidth, float entityHeight, float speed, String name, float health, float maxHealth, float defence, float attackPower, Faction faction){
+    public Enemy(float x, float y, float width, float height, float speed, String name, float health, float maxHealth, float defence, float attackPower, Faction faction){
 
-        super(x, y, entityWidth, entityHeight, speed, name, health, maxHealth, defence, attackPower, faction);
+        super(x, y, width, height, speed, name, health, maxHealth, defence, attackPower, faction);
 
         baseX = x;
     }

@@ -70,6 +70,10 @@ public abstract class Entity{
         return health;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public void move(float xAmount, float yAmount) {
         x += xAmount;
         y += yAmount;

@@ -38,7 +38,7 @@ public class CollisionSystem {
                 if (overlaps(bullet, entity)) {
                     entity.takeDamage(bullet.getDamage());
                     bulletsToRemove.add(bullet);
-                    System.out.println(entity.getHealth());
+                    System.out.println(entity.getName() + " " + entity.getHealth());
                 }
             }
         }
