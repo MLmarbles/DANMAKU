@@ -63,8 +63,7 @@ public class Main extends ApplicationAdapter {
 
         bulletManager.update(delta);
 
-        collisionSystem.inspectCollision(bulletManager, player);
-        collisionSystem.inspectCollision(bulletManager, enemy);
+        collisionSystem.inspectCollision(bulletManager, entityManager);
 
 
 
