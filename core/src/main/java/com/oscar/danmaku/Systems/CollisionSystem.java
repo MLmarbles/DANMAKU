@@ -32,8 +32,8 @@ public class CollisionSystem {
 
         List<Entity> entities = entityManager.getEntities();
 
-        for (Entity entity : entities) {
-            for (Bullet bullet : bullets) {
+        for (Bullet bullet : bullets) {
+            for (Entity entity : entities) {
                 if (bullet.getFaction() != entity.getFaction()) {
                     if (overlaps(bullet, entity)) {
                         entity.takeDamage(bullet.getDamage());
