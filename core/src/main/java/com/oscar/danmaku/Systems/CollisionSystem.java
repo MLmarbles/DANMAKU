@@ -19,7 +19,7 @@ public class CollisionSystem {
         
         Rectangle recBullet = new Rectangle(bullet.getX(), bullet.getY(), bullet.getWidth(), bullet.getHeight());
 
-        Rectangle recEntity = new Rectangle(entity.getX(), entity.getY(), entity.getWidth(), entity.getHeight());
+        Rectangle recEntity = new Rectangle(entity.getX() - entity.getWidth() / 2, entity.getY() - entity.getHeight() / 2, entity.getWidth(), entity.getHeight());
 
         return recBullet.overlaps(recEntity);
     }

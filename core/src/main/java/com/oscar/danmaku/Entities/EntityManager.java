@@ -50,8 +50,8 @@ public class EntityManager {
             Entity entity = iterator.next();
 
             shapeRenderer.rect(
-            entity.getX(),
-            entity.getY(),
+            entity.getX() - entity.getWidth() / 2,
+            entity.getY() - entity.getHeight() / 2,
             entity.getWidth(),
             entity.getHeight()
         );
