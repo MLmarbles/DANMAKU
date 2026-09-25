@@ -14,6 +14,7 @@ import com.oscar.danmaku.Entities.EntityManager;
 import com.oscar.danmaku.Entities.Faction;
 import com.oscar.danmaku.Entities.Player;
 import com.oscar.danmaku.Patterns.TriangleShotPattern;
+import com.oscar.danmaku.Patterns.SpreadShotPattern;
 import com.oscar.danmaku.Patterns.StraightShotPattern;
 import com.oscar.danmaku.Systems.AttackSystem;
 import com.oscar.danmaku.Systems.CollisionSystem;
@@ -43,9 +44,9 @@ public class Main extends ApplicationAdapter {
         entityManager = new EntityManager();
         attackSystem = new AttackSystem();
 
-        player = new Player(300, 100, 20, 20, 250f, "player", 100, 100, 10, 10, Faction.PLAYER, new TriangleShotPattern(0, 1, 0.25f));
+        player = new Player(300, 100, 20, 20, 250f, "player", 100, 100, 10, 10, Faction.PLAYER, new SpreadShotPattern(90f, 0.25f));
 
-        enemy = new Enemy(300, 300, 20, 20, 250f, "enemy", 100, 100, 10, 10, Faction.ENEMY, new StraightShotPattern(0, -1, 1.0f));
+        enemy = new Enemy(300, 300, 20, 20, 250f, "enemy", 100, 100, 10, 10, Faction.ENEMY, new SpreadShotPattern(270f, 0.50f));
 
         entityManager.addEntity(player);
         entityManager.addEntity(enemy);
