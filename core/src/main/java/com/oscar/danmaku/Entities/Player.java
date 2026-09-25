@@ -3,12 +3,13 @@ package com.oscar.danmaku.Entities;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.MathUtils;
+import com.oscar.danmaku.Patterns.AttackPattern;
 
 public class Player extends Entity{
 
-    public Player(float x, float y, float width, float height, float speed, String name, float health, float maxHealth, float defence, float attackPower, Faction faction){
+    public Player(float x, float y, float width, float height, float speed, String name, float health, float maxHealth, float defence, float attackPower, Faction faction, AttackPattern attackPattern){
 
-        super(x, y, width, height, speed, name, health, maxHealth, defence, attackPower, faction);
+        super(x, y, width, height, speed, name, health, maxHealth, defence, attackPower, faction, attackPattern);
     }
 
 
@@ -51,14 +52,9 @@ public class Player extends Entity{
         ));
     }
 
-
-    public boolean isShooting() {
-
-        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-            return true;
-        }
-
-        return false;
+    @Override
+    public boolean wantsToShoot() {
+        return Gdx.input.isKeyPressed(Input.Keys.SPACE);
     }
 
     @Override

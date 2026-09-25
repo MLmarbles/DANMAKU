@@ -1,6 +1,7 @@
 package com.oscar.danmaku.Entities;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -21,6 +22,10 @@ public class EntityManager {
 
     public void removeEntity(Entity entity) {
         entities.remove(entity);
+    }
+
+    public List<Entity> getEntities() {
+        return Collections.unmodifiableList(entities);
     }
 
     public void update(float delta) {

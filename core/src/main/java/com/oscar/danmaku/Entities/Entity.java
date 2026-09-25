@@ -2,6 +2,7 @@ package com.oscar.danmaku.Entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
+import com.oscar.danmaku.Patterns.AttackPattern;
 
 public abstract class Entity{
     private String name;
@@ -19,7 +20,9 @@ public abstract class Entity{
 
     private Faction faction;
 
-    public Entity(float x, float y, float width, float height, float speed, String name, float health, float maxHealth, float defence, float attackPower, Faction faction) {
+    private AttackPattern attackPattern;
+
+    public Entity(float x, float y, float width, float height, float speed, String name, float health, float maxHealth, float defence, float attackPower, Faction faction, AttackPattern attackPattern) {
         this.x = x;
         this.y = y;
         this.width = width;
@@ -32,9 +35,11 @@ public abstract class Entity{
         this.defence = defence;
         this.attackPower = attackPower;
         this.faction = faction;
+        this.attackPattern = attackPattern;
     }
 
     public abstract void update(float delta);
+    public abstract boolean wantsToShoot();
 
     public float getX() {
         return x;
@@ -74,6 +79,10 @@ public abstract class Entity{
 
     public String getName() {
         return name;
+    }
+
+    public AttackPattern getAttackPattern() {
+        return attackPattern;
     }
 
     public void move(float xAmount, float yAmount) {

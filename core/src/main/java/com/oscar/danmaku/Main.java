@@ -13,6 +13,8 @@ import com.oscar.danmaku.Entities.Enemy;
 import com.oscar.danmaku.Entities.EntityManager;
 import com.oscar.danmaku.Entities.Faction;
 import com.oscar.danmaku.Entities.Player;
+import com.oscar.danmaku.Patterns.StraightShotPattern;
+import com.oscar.danmaku.Systems.AttackSystem;
 import com.oscar.danmaku.Systems.CollisionSystem;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
@@ -29,6 +31,8 @@ public class Main extends ApplicationAdapter {
     private BulletManager bulletManager;
     private EntityManager entityManager;
 
+    private AttackSystem attackSystem;
+
     @Override
     public void create() {
 
@@ -36,10 +40,11 @@ public class Main extends ApplicationAdapter {
         bulletManager = new BulletManager();
         collisionSystem = new CollisionSystem();
         entityManager = new EntityManager();
+        attackSystem = new AttackSystem();
 
-        player = new Player(300, 100, 20, 20, 250f, "player", 100, 100, 10, 10, Faction.PLAYER);
+        player = new Player(300, 100, 20, 20, 250f, "player", 100, 100, 10, 10, Faction.PLAYER, new StraightShotPattern(0, 1, 0.25f));
 
-        enemy = new Enemy(300, 300, 20, 20, 250f, "enemy", 100, 100, 10, 10, Faction.ENEMY);
+        enemy = new Enemy(300, 300, 20, 20, 250f, "enemy", 100, 100, 10, 10, Faction.ENEMY, new StraightShotPattern(0, -1, 1.0f));
 
         entityManager.addEntity(player);
         entityManager.addEntity(enemy);
@@ -52,19 +57,16 @@ public class Main extends ApplicationAdapter {
 
         float delta = Gdx.graphics.getDeltaTime();
 
-        bulletManager.update(delta);
         entityManager.update(delta);
+
+        attackSystem.update(delta, entityManager, bulletManager);
+
+        bulletManager.update(delta);
 
         collisionSystem.inspectCollision(bulletManager, player);
         collisionSystem.inspectCollision(bulletManager, enemy);
 
-        if (player.isShooting() & player.getHealth() > 0) {
-            bulletManager.spawn(player.getX(), player.getY(), 400, 2, 2, Faction.PLAYER, 10, 0, 1);
-        }
 
-        if (enemy.shouldShoot() & enemy.getHealth() > 0) {
-            bulletManager.spawn(enemy.getX(), enemy.getY(), 400, 2, 2, Faction.ENEMY, 10, 0, -1);
-        }
 
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
 

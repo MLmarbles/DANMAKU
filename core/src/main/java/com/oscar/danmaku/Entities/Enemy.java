@@ -1,18 +1,17 @@
 package com.oscar.danmaku.Entities;
 
 import com.badlogic.gdx.math.MathUtils;
+import com.oscar.danmaku.Patterns.AttackPattern;
 
 public class Enemy extends Entity {
 
     private float baseX;
     private float time;
     private float amplitude = 50f;
-    private float shootTimer;
-    private float shootInterval = 1.0f;
     
-    public Enemy(float x, float y, float width, float height, float speed, String name, float health, float maxHealth, float defence, float attackPower, Faction faction){
+    public Enemy(float x, float y, float width, float height, float speed, String name, float health, float maxHealth, float defence, float attackPower, Faction faction, AttackPattern attackPattern){
 
-        super(x, y, width, height, speed, name, health, maxHealth, defence, attackPower, faction);
+        super(x, y, width, height, speed, name, health, maxHealth, defence, attackPower, faction, attackPattern);
 
         baseX = x;
     }
@@ -24,17 +23,11 @@ public class Enemy extends Entity {
         float newX = baseX + MathUtils.sin(time) * amplitude;
 
         setX(newX);
-
-        shootTimer += delta;
     }
 
-    public boolean shouldShoot() {
-        if (shootTimer >= shootInterval) {
-            shootTimer = 0;
-            return true;
-        }   
-
-        return false;
+    @Override
+    public boolean wantsToShoot() {
+        return true;
     }
 
     @Override
