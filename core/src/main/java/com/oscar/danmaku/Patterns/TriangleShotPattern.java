@@ -25,7 +25,7 @@ public class TriangleShotPattern implements AttackPattern {
                     float offset = 30;
                     float startX = entity.getX() + (i - 2) * offset;
 
-                    float startY = (2 - Math.abs(i - 2)) * offset;
+                    float startY = (2 - Math.abs(i - 2)) * offset * directionY;
 
                     bulletManager.spawn(startX, entity.getY() + startY, 400, 5, 5, entity.getFaction(), 10, directionX, directionY); 
                 }

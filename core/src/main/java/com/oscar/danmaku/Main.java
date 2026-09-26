@@ -20,6 +20,7 @@ import com.oscar.danmaku.Patterns.TriangleShotPattern;
 import com.oscar.danmaku.Patterns.SpreadShotPattern;
 import com.oscar.danmaku.Patterns.StraightShotPattern;
 import com.oscar.danmaku.Systems.AttackSystem;
+import com.oscar.danmaku.Systems.BossPhaseManager;
 import com.oscar.danmaku.Systems.CollisionSystem;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
@@ -42,6 +43,8 @@ public class Main extends ApplicationAdapter {
 
     private GameStateManager gameStateManager;
 
+    private BossPhaseManager bossPhaseManager;
+
     @Override
     public void create() {
         batch = new SpriteBatch();
@@ -53,10 +56,11 @@ public class Main extends ApplicationAdapter {
         entityManager = new EntityManager();
         attackSystem = new AttackSystem();
         gameStateManager = new GameStateManager(GameState.PLAYING);
+        bossPhaseManager = new BossPhaseManager();
 
         player = new Player(300, 100, 20, 20, 250f, "player", 100, 100, 10, 10, Faction.PLAYER, new SpreadShotPattern(90f, 0.25f));
 
-        enemy = new Enemy(300, 300, 20, 20, 250f, "enemy", 100, 100, 10, 10, Faction.ENEMY, new SpreadShotPattern(270f, 0.50f));
+        enemy = new Enemy(300, 300, 20, 20, 250f, "enemy", 100, 100, 10, 10, Faction.ENEMY, new StraightShotPattern(0, -1, 0.5f));
 
         entityManager.addEntity(player);
         entityManager.addEntity(enemy);
@@ -82,6 +86,8 @@ public class Main extends ApplicationAdapter {
             collisionSystem.inspectCollision(bulletManager, entityManager);
             
             gameStateManager.update(player);
+
+            bossPhaseManager.update(enemy);
 
             shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
 

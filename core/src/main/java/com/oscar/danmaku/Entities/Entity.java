@@ -85,6 +85,10 @@ public abstract class Entity{
         return attackPattern;
     }
 
+    public void setAttackPattern(AttackPattern attackPattern) {
+        this.attackPattern = attackPattern;
+    }
+
     public void move(float xAmount, float yAmount) {
         x += xAmount;
         y += yAmount;
