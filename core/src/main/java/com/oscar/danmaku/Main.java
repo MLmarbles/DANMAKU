@@ -20,6 +20,7 @@ import com.oscar.danmaku.Patterns.TriangleShotPattern;
 import com.oscar.danmaku.Patterns.SpreadShotPattern;
 import com.oscar.danmaku.Patterns.StraightShotPattern;
 import com.oscar.danmaku.Systems.AttackSystem;
+import com.oscar.danmaku.Systems.BossHealthRing;
 import com.oscar.danmaku.Systems.BossPhaseManager;
 import com.oscar.danmaku.Systems.CollisionSystem;
 
@@ -44,6 +45,7 @@ public class Main extends ApplicationAdapter {
     private GameStateManager gameStateManager;
 
     private BossPhaseManager bossPhaseManager;
+    private BossHealthRing bossHealthRing;
 
     @Override
     public void create() {
@@ -57,6 +59,7 @@ public class Main extends ApplicationAdapter {
         attackSystem = new AttackSystem();
         gameStateManager = new GameStateManager(GameState.PLAYING);
         bossPhaseManager = new BossPhaseManager();
+        bossHealthRing = new BossHealthRing();
 
         player = new Player(300, 100, 20, 20, 250f, "player", 100, 100, 10, 10, Faction.PLAYER, new SpreadShotPattern(90f, 0.25f));
 
@@ -90,10 +93,12 @@ public class Main extends ApplicationAdapter {
             bossPhaseManager.update(enemy);
 
             shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-
             bulletManager.render(shapeRenderer);
             entityManager.render(shapeRenderer);
+            shapeRenderer.end();
 
+            shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+            bossHealthRing.render(shapeRenderer, enemy);
             shapeRenderer.end();
         }
 
