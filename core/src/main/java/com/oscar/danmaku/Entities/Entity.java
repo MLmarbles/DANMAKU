@@ -77,6 +77,10 @@ public abstract class Entity{
         return health;
     }
 
+    public float getMaxHealth() {
+        return maxHealth;
+    }
+
     public String getName() {
         return name;
     }

@@ -20,11 +20,13 @@ public class BossPhaseManager {
     }
 
     public void update(Enemy boss) {
-        if (boss.getHealth() < 70) {
+
+        if (currentPhase == 1 && boss.getHealth() < (boss.getMaxHealth() * 0.7)) {
             currentPhase = 2;
             boss.setAttackPattern(triangleShotPattern);
         }
-        if (boss.getHealth() < 40) {
+
+        if (currentPhase == 2 && boss.getHealth() < (boss.getMaxHealth() * 0.4)) {
             currentPhase = 3;
             boss.setAttackPattern(spreadShotPattern);
         }
