@@ -29,6 +29,10 @@ public class BulletManager {
         bullets.remove(bullet);
     }
 
+    public void clear() {
+        bullets.clear();
+    }
+
     public void update(float delta) {
 
         Iterator<Bullet> iterator = bullets.iterator();

@@ -17,6 +17,7 @@ import com.oscar.danmaku.Entities.Player;
 import com.oscar.danmaku.Game.GameState;
 import com.oscar.danmaku.Game.GameStateManager;
 import com.oscar.danmaku.Patterns.TriangleShotPattern;
+import com.oscar.danmaku.Patterns.RadialBurstPattern;
 import com.oscar.danmaku.Patterns.SpreadShotPattern;
 import com.oscar.danmaku.Patterns.StraightShotPattern;
 import com.oscar.danmaku.Systems.AttackSystem;
@@ -61,9 +62,9 @@ public class Main extends ApplicationAdapter {
         bossPhaseManager = new BossPhaseManager();
         bossHealthRing = new BossHealthRing();
 
-        player = new Player(300, 100, 20, 20, 250f, "player", 100, 100, 10, 10, Faction.PLAYER, new SpreadShotPattern(90f, 0.25f));
+        player = new Player(300, 100, 10, 10, 250f, "player", 100, 100, 10, 10, Faction.PLAYER, new SpreadShotPattern(90f, 0.25f));
 
-        enemy = new Enemy(300, 400, 20, 20, 250f, "enemy", 100, 100, 10, 10, Faction.ENEMY, new StraightShotPattern(0, -1, 0.5f));
+        enemy = new Enemy(300, 400, 20, 20, 250f, "enemy", 100, 100, 10, 10, Faction.ENEMY, new RadialBurstPattern(0.5f, 20, 150f, 15f));
 
         entityManager.addEntity(player);
         entityManager.addEntity(enemy);
@@ -90,7 +91,7 @@ public class Main extends ApplicationAdapter {
             
             gameStateManager.update(player);
 
-            bossPhaseManager.update(enemy);
+            bossPhaseManager.update(enemy, bulletManager);
 
             shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
             bulletManager.render(shapeRenderer);

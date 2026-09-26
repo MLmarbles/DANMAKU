@@ -1,5 +1,6 @@
 package com.oscar.danmaku.Systems;
 
+import com.oscar.danmaku.Bullets.BulletManager;
 import com.oscar.danmaku.Entities.Enemy;
 import com.oscar.danmaku.Patterns.SpreadShotPattern;
 import com.oscar.danmaku.Patterns.TriangleShotPattern;
@@ -19,15 +20,17 @@ public class BossPhaseManager {
         return currentPhase;
     }
 
-    public void update(Enemy boss) {
+    public void update(Enemy boss, BulletManager bulletManager) {
 
         if (currentPhase == 1 && boss.getHealth() < (boss.getMaxHealth() * 0.7)) {
             currentPhase = 2;
+            bulletManager.clear();
             boss.setAttackPattern(triangleShotPattern);
         }
 
         if (currentPhase == 2 && boss.getHealth() < (boss.getMaxHealth() * 0.4)) {
             currentPhase = 3;
+            bulletManager.clear();
             boss.setAttackPattern(spreadShotPattern);
         }
     }
