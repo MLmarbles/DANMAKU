@@ -9,7 +9,7 @@ import com.oscar.danmaku.Patterns.TriangleShotPattern;
 public class BossPhaseManager {
     private int currentPhase = 1;
 
-    private SpiralBurstPattern spiralBurstPattern = new SpiralBurstPattern(0.5f, 150f, 15);
+    private SpiralBurstPattern spiralBurstPattern = new SpiralBurstPattern(0.02f, 150f, 15);
 
     private SpreadShotPattern spreadShotPattern = new SpreadShotPattern(270f, 0.5f);
 

@@ -27,7 +27,7 @@ public class SpreadShotPattern implements AttackPattern {
                     float redirectX = MathUtils.cosDeg(angle);
                     float redirectY = MathUtils.sinDeg(angle);
 
-                    bulletManager.spawn(entity.getX(), entity.getY(), 400, 5, 5, entity.getFaction(), 10, redirectX, redirectY); 
+                    bulletManager.spawn(entity.getX(), entity.getY(), 400, 5, 5, entity.getFaction(), 2, redirectX, redirectY); 
 
                 }
                 shootTimer = 0;     

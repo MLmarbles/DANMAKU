@@ -7,15 +7,12 @@ import com.oscar.danmaku.Entities.Entity;
 
 public class SpiralBurstPattern implements AttackPattern {
     private float shootInterval;
-    private int groupCount;
     private float bulletSpeed;
 
     private float shootTimer;
 
     private float rotationAmount;
     private float rotation;
-
-    private float startX;
 
     public SpiralBurstPattern(float shootInterval, float bulletSpeed, float rotationAmount) {
         this.shootInterval = shootInterval;
@@ -28,15 +25,11 @@ public class SpiralBurstPattern implements AttackPattern {
 
         shootTimer += delta;
 
-        float screenWidth = Gdx.graphics.getWidth();
-
-        float increment = screenWidth / groupCount;
-
-        startX = increment;
-
         if (entity.wantsToShoot() && !entity.isDead()) {
 
             if (shootTimer >= shootInterval) {
+
+                shootTimer = 0;
 
                     float directionX = MathUtils.cosDeg(rotation);
                     float directionY = MathUtils.sinDeg(rotation);
