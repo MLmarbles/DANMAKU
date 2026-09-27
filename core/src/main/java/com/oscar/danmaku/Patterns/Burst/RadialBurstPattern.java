@@ -1,12 +1,14 @@
-package com.oscar.danmaku.Patterns;
+package com.oscar.danmaku.Patterns.Burst;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 import com.oscar.danmaku.Bullets.BulletManager;
 import com.oscar.danmaku.Entities.Entity;
+import com.oscar.danmaku.Patterns.AttackPattern;
 
-public class SpiralBurstPattern implements AttackPattern {
+public class RadialBurstPattern implements AttackPattern {
+
     private float shootInterval;
+    private int bulletCount;
     private float bulletSpeed;
 
     private float shootTimer;
@@ -14,8 +16,9 @@ public class SpiralBurstPattern implements AttackPattern {
     private float rotationAmount;
     private float rotation;
 
-    public SpiralBurstPattern(float shootInterval, float bulletSpeed, float rotationAmount) {
+    public RadialBurstPattern(float shootInterval, int bulletCount, float bulletSpeed, float rotationAmount) {
         this.shootInterval = shootInterval;
+        this.bulletCount = bulletCount;
         this.bulletSpeed = bulletSpeed;
         this.rotationAmount = rotationAmount;
     }
@@ -29,10 +32,14 @@ public class SpiralBurstPattern implements AttackPattern {
 
             if (shootTimer >= shootInterval) {
 
-                shootTimer = 0;
+                float angleStep = 360f / bulletCount;
 
-                    float directionX = MathUtils.cosDeg(rotation);
-                    float directionY = MathUtils.sinDeg(rotation);
+                for (int i = 0; i < bulletCount; i++) {
+
+                    float angle = (i * angleStep) + rotation;
+
+                    float directionX = MathUtils.cosDeg(angle);
+                    float directionY = MathUtils.sinDeg(angle);
 
                     bulletManager.spawn(
                         entity.getX(),
@@ -45,8 +52,11 @@ public class SpiralBurstPattern implements AttackPattern {
                         directionX,
                         directionY
                     );
+                }
 
                 rotation += rotationAmount;
+
+                shootTimer = 0f;
             }
         }
     }

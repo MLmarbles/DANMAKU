@@ -17,7 +17,7 @@ import com.oscar.danmaku.Entities.Player;
 import com.oscar.danmaku.Game.GameState;
 import com.oscar.danmaku.Game.GameStateManager;
 import com.oscar.danmaku.Patterns.TriangleShotPattern;
-import com.oscar.danmaku.Patterns.RadialBurstPattern;
+import com.oscar.danmaku.Patterns.Burst.RadialBurstPattern;
 import com.oscar.danmaku.Patterns.SpreadShotPattern;
 import com.oscar.danmaku.Patterns.StraightShotPattern;
 import com.oscar.danmaku.Systems.AttackSystem;

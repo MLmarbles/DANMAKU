@@ -1,8 +1,9 @@
-package com.oscar.danmaku.Patterns;
+package com.oscar.danmaku.Patterns.Aimed;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.oscar.danmaku.Bullets.BulletManager;
 import com.oscar.danmaku.Entities.Entity;
+import com.oscar.danmaku.Patterns.AttackPattern;
 
 public class AimedSpreadPattern implements AttackPattern {
     private Entity target;
@@ -34,7 +35,7 @@ public class AimedSpreadPattern implements AttackPattern {
 
                 float targetAngle = MathUtils.atan2Deg(dy, dx);
                 float spreadAngle = 15f;
-                
+
                 float angleStep = spreadAngle;
                 float startAngle = targetAngle - (angleStep * (bulletCount - 1) / 2f);
 

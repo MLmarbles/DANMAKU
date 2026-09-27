@@ -1,7 +1,8 @@
-package com.oscar.danmaku.Patterns;
+package com.oscar.danmaku.Patterns.Aimed;
 
 import com.oscar.danmaku.Bullets.BulletManager;
 import com.oscar.danmaku.Entities.Entity;
+import com.oscar.danmaku.Patterns.AttackPattern;
 
 public class AimedShotPattern implements AttackPattern {
     private Entity target;
