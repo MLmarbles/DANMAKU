@@ -59,7 +59,6 @@ public class Main extends ApplicationAdapter {
         entityManager = new EntityManager();
         attackSystem = new AttackSystem();
         gameStateManager = new GameStateManager(GameState.PLAYING);
-        bossPhaseManager = new BossPhaseManager();
         bossHealthRing = new BossHealthRing();
 
         player = new Player(300, 100, 10, 10, 250f, "player", 100, 100, 10, 10, Faction.PLAYER, new SpreadShotPattern(90f, 0.25f));
@@ -68,6 +67,8 @@ public class Main extends ApplicationAdapter {
 
         entityManager.addEntity(player);
         entityManager.addEntity(enemy);
+
+        bossPhaseManager = new BossPhaseManager(player);
     }
 
     @Override
