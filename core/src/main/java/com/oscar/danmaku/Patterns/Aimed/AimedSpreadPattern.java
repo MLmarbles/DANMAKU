@@ -2,10 +2,13 @@ package com.oscar.danmaku.Patterns.Aimed;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.oscar.danmaku.Bullets.BulletManager;
+import com.oscar.danmaku.Bullets.Movement.BulletMovement;
+import com.oscar.danmaku.Bullets.Movement.StraightMovement;
 import com.oscar.danmaku.Entities.Entity;
 import com.oscar.danmaku.Patterns.AttackPattern;
 
 public class AimedSpreadPattern implements AttackPattern {
+    private BulletMovement movement;
     private Entity target;
 
     private float shootInterval;
@@ -14,11 +17,12 @@ public class AimedSpreadPattern implements AttackPattern {
 
     private float shootTimer;
 
-    public AimedSpreadPattern(Entity target, float shootInterval, int bulletCount, float bulletSpeed) {
+    public AimedSpreadPattern(Entity target, float shootInterval, int bulletCount, float bulletSpeed, BulletMovement movement) {
         this.target = target;
         this.shootInterval = shootInterval;
         this.bulletCount = bulletCount;
         this.bulletSpeed = bulletSpeed;
+        this.movement = movement;
     }
 
     @Override
@@ -55,7 +59,8 @@ public class AimedSpreadPattern implements AttackPattern {
                         entity.getFaction(),
                         10f,
                         directionX,
-                        directionY
+                        directionY,
+                        movement
                     );
                 }
 

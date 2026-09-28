@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.oscar.danmaku.Bullets.Bullet;
 import com.oscar.danmaku.Bullets.BulletManager;
+import com.oscar.danmaku.Bullets.Movement.StraightMovement;
 import com.oscar.danmaku.Entities.Enemy;
 import com.oscar.danmaku.Entities.EntityManager;
 import com.oscar.danmaku.Entities.Faction;
@@ -61,9 +62,9 @@ public class Main extends ApplicationAdapter {
         gameStateManager = new GameStateManager(GameState.PLAYING);
         bossHealthRing = new BossHealthRing();
 
-        player = new Player(300, 100, 10, 10, 250f, "player", 100, 100, 10, 10, Faction.PLAYER, new SpreadShotPattern(90f, 0.25f));
+        player = new Player(300, 100, 10, 10, 250f, "player", 100, 100, 10, 10, Faction.PLAYER, new SpreadShotPattern(90f, 0.25f, new StraightMovement()));
 
-        enemy = new Enemy(300, 400, 20, 20, 250f, "enemy", 100, 100, 10, 10, Faction.ENEMY, new RadialBurstPattern(0.5f, 20, 150f, 15f));
+        enemy = new Enemy(300, 400, 20, 20, 250f, "enemy", 100, 100, 10, 10, Faction.ENEMY, new RadialBurstPattern(0.5f, 20, 150f, 15f, new StraightMovement()));
 
         entityManager.addEntity(player);
         entityManager.addEntity(enemy);

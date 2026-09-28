@@ -1,6 +1,7 @@
 package com.oscar.danmaku.Bullets;
 
 import com.badlogic.gdx.Gdx;
+import com.oscar.danmaku.Bullets.Movement.BulletMovement;
 import com.oscar.danmaku.Entities.Faction;
 
 public class Bullet {
@@ -13,8 +14,9 @@ public class Bullet {
     private float damage;
     private float directionX;
     private float directionY;
+    private BulletMovement movement;
 
-    public Bullet(float x, float y, float speed, float width, float height, Faction faction, float damage, float directionX, float directionY){
+    public Bullet(float x, float y, float speed, float width, float height, Faction faction, float damage, float directionX, float directionY, BulletMovement movement){
         this.x = x;
         this.y = y;
         this.speed = speed;
@@ -24,6 +26,7 @@ public class Bullet {
         this.damage = damage;
         this.directionX = directionX;
         this.directionY = directionY;
+        this.movement = movement;
     }
 
     public float getX() {
@@ -32,6 +35,26 @@ public class Bullet {
 
     public float getY() {
         return y;
+    }
+
+    public void setX(float x) {
+        this.x = x;
+    }
+
+    public void setY(float y) {
+        this.y = y;
+    }
+
+    public float getSpeed() {
+        return speed;
+    }
+
+    public float getDirectionX() {
+        return directionX;
+    }
+
+    public float getDirectionY() {
+        return directionY;
     }
 
     public float getWidth() {
@@ -51,8 +74,7 @@ public class Bullet {
     }
 
     public void move(float delta) {
-        x += directionX * speed * delta;
-        y += directionY * speed * delta;
+        movement.update(this, delta);
     }
 
     public boolean isOffScreen() {

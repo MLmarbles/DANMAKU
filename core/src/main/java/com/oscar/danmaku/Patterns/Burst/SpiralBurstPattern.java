@@ -3,10 +3,14 @@ package com.oscar.danmaku.Patterns.Burst;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 import com.oscar.danmaku.Bullets.BulletManager;
+import com.oscar.danmaku.Bullets.Movement.BulletMovement;
+import com.oscar.danmaku.Bullets.Movement.SineMovement;
+import com.oscar.danmaku.Bullets.Movement.StraightMovement;
 import com.oscar.danmaku.Entities.Entity;
 import com.oscar.danmaku.Patterns.AttackPattern;
 
 public class SpiralBurstPattern implements AttackPattern {
+    private BulletMovement movement;
     private float shootInterval;
     private float bulletSpeed;
 
@@ -15,10 +19,15 @@ public class SpiralBurstPattern implements AttackPattern {
     private float rotationAmount;
     private float rotation;
 
-    public SpiralBurstPattern(float shootInterval, float bulletSpeed, float rotationAmount) {
+    private float startingAngle;
+
+    public SpiralBurstPattern(float shootInterval, float bulletSpeed, float rotationAmount, float startingAngle, BulletMovement movement) {
         this.shootInterval = shootInterval;
         this.bulletSpeed = bulletSpeed;
         this.rotationAmount = rotationAmount;
+        this.startingAngle = startingAngle;
+        this.rotation = startingAngle;
+        this.movement = movement;
     }
 
     @Override
@@ -44,7 +53,8 @@ public class SpiralBurstPattern implements AttackPattern {
                         entity.getFaction(),
                         10f,
                         directionX,
-                        directionY
+                        directionY,
+                        movement
                     );
 
                 rotation += rotationAmount;

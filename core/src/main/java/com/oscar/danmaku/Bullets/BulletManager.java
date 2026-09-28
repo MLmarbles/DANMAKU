@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.oscar.danmaku.Bullets.Movement.BulletMovement;
 import com.oscar.danmaku.Entities.Faction;
 
 public class BulletManager {
@@ -65,9 +66,9 @@ public class BulletManager {
         }
     }
 
-    public void spawn(float x, float y, float speed, float width, float height, Faction faction, float damage, float directionX, float directionY) {
+    public void spawn(float x, float y, float speed, float width, float height, Faction faction, float damage, float directionX, float directionY, BulletMovement movement) {
 
-        Bullet bullet = new Bullet(x, y, speed, width, height, faction, damage, directionX, directionY);
+        Bullet bullet = new Bullet(x, y, speed, width, height, faction, damage, directionX, directionY, movement);
 
         bullets.add(bullet);
     }

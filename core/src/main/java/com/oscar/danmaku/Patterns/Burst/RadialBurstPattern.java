@@ -2,10 +2,13 @@ package com.oscar.danmaku.Patterns.Burst;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.oscar.danmaku.Bullets.BulletManager;
+import com.oscar.danmaku.Bullets.Movement.BulletMovement;
+import com.oscar.danmaku.Bullets.Movement.StraightMovement;
 import com.oscar.danmaku.Entities.Entity;
 import com.oscar.danmaku.Patterns.AttackPattern;
 
 public class RadialBurstPattern implements AttackPattern {
+    private BulletMovement movement;
 
     private float shootInterval;
     private int bulletCount;
@@ -16,11 +19,12 @@ public class RadialBurstPattern implements AttackPattern {
     private float rotationAmount;
     private float rotation;
 
-    public RadialBurstPattern(float shootInterval, int bulletCount, float bulletSpeed, float rotationAmount) {
+    public RadialBurstPattern(float shootInterval, int bulletCount, float bulletSpeed, float rotationAmount, BulletMovement movement) {
         this.shootInterval = shootInterval;
         this.bulletCount = bulletCount;
         this.bulletSpeed = bulletSpeed;
         this.rotationAmount = rotationAmount;
+        this.movement = movement;
     }
 
     @Override
@@ -50,7 +54,8 @@ public class RadialBurstPattern implements AttackPattern {
                         entity.getFaction(),
                         10f,
                         directionX,
-                        directionY
+                        directionY,
+                        movement
                     );
                 }
 
