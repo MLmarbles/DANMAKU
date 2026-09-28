@@ -3,6 +3,8 @@ package com.oscar.danmaku.Systems;
 import com.oscar.danmaku.Bullets.BulletManager;
 import com.oscar.danmaku.Bullets.Movement.SineMovement;
 import com.oscar.danmaku.Bullets.Movement.StraightMovement;
+import com.oscar.danmaku.Bullets.MovementFactory.SineMovementFactory;
+import com.oscar.danmaku.Bullets.MovementFactory.StraightMovementFactory;
 import com.oscar.danmaku.Entities.Enemy;
 import com.oscar.danmaku.Entities.Entity;
 import com.oscar.danmaku.Patterns.AttackPattern;
@@ -22,9 +24,9 @@ public class BossPhaseManager {
     public BossPhaseManager(Entity target) {
         this.target = target;
 
-        aimedSpreadPattern = new AimedSpreadPattern(target, 0.5f, 5, 200f, new StraightMovement());
+        aimedSpreadPattern = new AimedSpreadPattern(target, 0.5f, 5, 200f, new StraightMovementFactory());
 
-        phase3Pattern = new CompositeAttackPattern(new RadialBurstPattern(1.0f, 16, 150f, 10f, new StraightMovement()), new AimedSpreadPattern(target, 0.5f, 5, 200f, new StraightMovement()));
+        phase3Pattern = new CompositeAttackPattern(new RadialBurstPattern(1.0f, 16, 150f, 10f, new StraightMovementFactory()), new AimedSpreadPattern(target, 0.5f, 5, 200f, new StraightMovementFactory()));
     }
 
     private AimedSpreadPattern aimedSpreadPattern;
@@ -32,16 +34,16 @@ public class BossPhaseManager {
 
     private AttackPattern phase2Pattern = new CompositeAttackPattern(
         new SpiralBurstPattern(0.10f, 130f, 10f, 0f,
-            new SineMovement(15f, 1.5f)),
+            new SineMovementFactory(5f, 1f)),
 
         new SpiralBurstPattern(0.10f, 130f, 10f, 90f,
-            new SineMovement(15f, 1.5f)),
+            new SineMovementFactory(5f, 1f)),
 
         new SpiralBurstPattern(0.10f, 130f, 10f, 180f,
-            new SineMovement(15f, 1.5f)),
+            new SineMovementFactory(5f, 1f)),
 
         new SpiralBurstPattern(0.10f, 130f, 10f, 270f,
-            new SineMovement(15f, 1.5f))
+            new SineMovementFactory(5f, 1f))
     );
 
     public int getCurrentPhase() {

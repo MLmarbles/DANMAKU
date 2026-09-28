@@ -6,11 +6,12 @@ import com.oscar.danmaku.Bullets.BulletManager;
 import com.oscar.danmaku.Bullets.Movement.BulletMovement;
 import com.oscar.danmaku.Bullets.Movement.SineMovement;
 import com.oscar.danmaku.Bullets.Movement.StraightMovement;
+import com.oscar.danmaku.Bullets.MovementFactory.BulletMovementFactory;
 import com.oscar.danmaku.Entities.Entity;
 import com.oscar.danmaku.Patterns.AttackPattern;
 
 public class SpiralBurstPattern implements AttackPattern {
-    private BulletMovement movement;
+    private BulletMovementFactory movementFactory;
     private float shootInterval;
     private float bulletSpeed;
 
@@ -21,13 +22,13 @@ public class SpiralBurstPattern implements AttackPattern {
 
     private float startingAngle;
 
-    public SpiralBurstPattern(float shootInterval, float bulletSpeed, float rotationAmount, float startingAngle, BulletMovement movement) {
+    public SpiralBurstPattern(float shootInterval, float bulletSpeed, float rotationAmount, float startingAngle, BulletMovementFactory movementFactory) {
         this.shootInterval = shootInterval;
         this.bulletSpeed = bulletSpeed;
         this.rotationAmount = rotationAmount;
         this.startingAngle = startingAngle;
         this.rotation = startingAngle;
-        this.movement = movement;
+        this.movementFactory = movementFactory;
     }
 
     @Override
@@ -54,7 +55,7 @@ public class SpiralBurstPattern implements AttackPattern {
                         10f,
                         directionX,
                         directionY,
-                        movement
+                        movementFactory.create()
                     );
 
                 rotation += rotationAmount;

@@ -3,11 +3,12 @@ package com.oscar.danmaku.Patterns.Aimed;
 import com.oscar.danmaku.Bullets.BulletManager;
 import com.oscar.danmaku.Bullets.Movement.BulletMovement;
 import com.oscar.danmaku.Bullets.Movement.StraightMovement;
+import com.oscar.danmaku.Bullets.MovementFactory.BulletMovementFactory;
 import com.oscar.danmaku.Entities.Entity;
 import com.oscar.danmaku.Patterns.AttackPattern;
 
 public class AimedShotPattern implements AttackPattern {
-    private BulletMovement movement;
+    private BulletMovementFactory movementFactory;
     private Entity target;
 
     private float shootInterval;
@@ -16,12 +17,12 @@ public class AimedShotPattern implements AttackPattern {
 
     private float shootTimer;
 
-    public AimedShotPattern(Entity target, float shootInterval, int bulletCount, float bulletSpeed, BulletMovement movement) {
+    public AimedShotPattern(Entity target, float shootInterval, int bulletCount, float bulletSpeed, BulletMovementFactory movementFactory) {
         this.target = target;
         this.shootInterval = shootInterval;
         this.bulletCount = bulletCount;
         this.bulletSpeed = bulletSpeed;
-        this.movement = movement;
+        this.movementFactory = movementFactory;
     }
 
     @Override
@@ -51,7 +52,7 @@ public class AimedShotPattern implements AttackPattern {
                     10f,
                     directionX,
                     directionY,
-                    movement
+                    movementFactory.create()
                 );
 
                 shootTimer = 0;
