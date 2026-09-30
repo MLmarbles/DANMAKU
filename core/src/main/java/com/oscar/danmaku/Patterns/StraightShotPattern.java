@@ -26,7 +26,7 @@ public class StraightShotPattern implements AttackPattern {
         shootTimer += delta;
         if (entity.wantsToShoot() && !entity.isDead()) {
             if (shootTimer >= shootInterval) {
-                bulletManager.spawn(entity.getX(), entity.getY(), 400, 2, 2, entity.getFaction(), 10, directionX, directionY, movementFactory.create()); 
+                bulletManager.spawn(entity.getX(), entity.getY(), 200, 12, 12, entity.getFaction(), 10, directionX, directionY, movementFactory.create()); 
                 shootTimer = 0;     
             }
         }

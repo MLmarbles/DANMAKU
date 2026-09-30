@@ -3,6 +3,7 @@ package com.oscar.danmaku.Systems;
 import com.oscar.danmaku.Bullets.BulletManager;
 import com.oscar.danmaku.Bullets.Movement.SineMovement;
 import com.oscar.danmaku.Bullets.Movement.StraightMovement;
+import com.oscar.danmaku.Bullets.MovementFactory.HomingMovementFactory;
 import com.oscar.danmaku.Bullets.MovementFactory.SineMovementFactory;
 import com.oscar.danmaku.Bullets.MovementFactory.StraightMovementFactory;
 import com.oscar.danmaku.Entities.Enemy;
@@ -10,6 +11,7 @@ import com.oscar.danmaku.Entities.Entity;
 import com.oscar.danmaku.Patterns.AttackPattern;
 import com.oscar.danmaku.Patterns.CompositeAttackPattern;
 import com.oscar.danmaku.Patterns.SpreadShotPattern;
+import com.oscar.danmaku.Patterns.StraightShotPattern;
 import com.oscar.danmaku.Patterns.TriangleShotPattern;
 import com.oscar.danmaku.Patterns.Aimed.AimedShotPattern;
 import com.oscar.danmaku.Patterns.Aimed.AimedSpreadPattern;
@@ -26,7 +28,11 @@ public class BossPhaseManager {
 
         aimedSpreadPattern = new AimedSpreadPattern(target, 0.5f, 5, 200f, new StraightMovementFactory());
 
+        /* 
         phase3Pattern = new CompositeAttackPattern(new RadialBurstPattern(1.0f, 16, 150f, 10f, new StraightMovementFactory()), new AimedSpreadPattern(target, 0.5f, 5, 200f, new StraightMovementFactory()));
+        */
+
+        phase3Pattern = new StraightShotPattern(0, -1, 1f, new HomingMovementFactory(target, 180f));
     }
 
     private AimedSpreadPattern aimedSpreadPattern;

@@ -57,6 +57,14 @@ public class Bullet {
         return directionY;
     }
 
+    public void setDirectionX(float directionX) {
+        this.directionX = directionX;
+    }
+
+    public void setDirectionY(float directionY) {
+        this.directionY = directionY;
+    }
+
     public float getWidth() {
         return width;
     }
