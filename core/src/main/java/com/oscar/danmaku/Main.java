@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.oscar.danmaku.Bullets.Bullet;
@@ -29,8 +30,9 @@ import com.oscar.danmaku.Systems.CollisionSystem;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Main extends ApplicationAdapter {
-    //private SpriteBatch batch;
-    //private Texture image;
+
+    private Texture sprites;
+    private TextureRegion playerSprite;
 
     private ShapeRenderer shapeRenderer;
     private SpriteBatch batch;
@@ -54,6 +56,15 @@ public class Main extends ApplicationAdapter {
     public void create() {
         batch = new SpriteBatch();
         font = new BitmapFont();
+
+        sprites = new Texture("Art/Sprites/CirnoSprite.png");
+
+        sprites.setFilter(
+            Texture.TextureFilter.Nearest,
+            Texture.TextureFilter.Nearest
+        );
+
+        playerSprite = new TextureRegion(sprites);
 
         shapeRenderer = new ShapeRenderer();
         bulletManager = new BulletManager();
@@ -104,7 +115,38 @@ public class Main extends ApplicationAdapter {
             shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
             bossHealthRing.render(shapeRenderer, enemy);
             shapeRenderer.end();
+
+
+
+            batch.begin();
+
+            float spriteWidth = 36f;
+            float spriteHeight = 48f;
+
+            batch.setColor(1f, 1f, 1f, 0.5f);
+
+            batch.draw(
+                playerSprite,
+                player.getX() - spriteWidth / 2f,
+                player.getY() - spriteHeight / 2f,
+                spriteWidth,
+                spriteHeight
+            );
+
+            batch.setColor(1f, 1f, 1f, 1f);
+
+            batch.end();
         }
+
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+
+        shapeRenderer.circle(
+            player.getX(),
+            player.getY(),
+            5f
+        );
+
+        shapeRenderer.end();
 
         if (gameStateManager.getGameState() == GameState.GAME_OVER) {
             batch.begin();
@@ -121,5 +163,6 @@ public class Main extends ApplicationAdapter {
         shapeRenderer.dispose();
         batch.dispose();
         font.dispose();
+        sprites.dispose();
     }
 }
