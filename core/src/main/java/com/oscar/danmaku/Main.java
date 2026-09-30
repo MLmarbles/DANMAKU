@@ -31,8 +31,8 @@ import com.oscar.danmaku.Systems.CollisionSystem;
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Main extends ApplicationAdapter {
 
-    private Texture sprites;
-    private TextureRegion playerSprite;
+    private Texture playerSprite;
+    private Texture bossSprite;
 
     private ShapeRenderer shapeRenderer;
     private SpriteBatch batch;
@@ -57,14 +57,19 @@ public class Main extends ApplicationAdapter {
         batch = new SpriteBatch();
         font = new BitmapFont();
 
-        sprites = new Texture("Art/Sprites/CirnoSprite.png");
+        playerSprite = new Texture("Art/Sprites/Player/CirnoSprite.png");
 
-        sprites.setFilter(
+        playerSprite.setFilter(
             Texture.TextureFilter.Nearest,
             Texture.TextureFilter.Nearest
         );
 
-        playerSprite = new TextureRegion(sprites);
+        bossSprite = new Texture("Art/Sprites/Boss/BossFlandreSprite.png");
+
+        bossSprite.setFilter(
+            Texture.TextureFilter.Nearest,
+            Texture.TextureFilter.Nearest
+        );
 
         shapeRenderer = new ShapeRenderer();
         bulletManager = new BulletManager();
@@ -76,7 +81,7 @@ public class Main extends ApplicationAdapter {
 
         player = new Player(300, 100, 10, 10, 250f, "player", 100, 100, 10, 10, Faction.PLAYER, new SpreadShotPattern(90f, 0.25f, new StraightMovementFactory()));
 
-        enemy = new Enemy(300, 400, 20, 20, 250f, "enemy", 100, 100, 10, 10, Faction.ENEMY, new RadialBurstPattern(0.5f, 20, 150f, 15f, new StraightMovementFactory()));
+        enemy = new Enemy(300, 400, 80, 140, 250f, "enemy", 100, 100, 10, 10, Faction.ENEMY, new RadialBurstPattern(0.5f, 20, 150f, 15f, new StraightMovementFactory()));
 
         entityManager.addEntity(player);
         entityManager.addEntity(enemy);
@@ -120,33 +125,46 @@ public class Main extends ApplicationAdapter {
 
             batch.begin();
 
-            float spriteWidth = 36f;
-            float spriteHeight = 48f;
+            float playerSpriteWidth = 36f;
+            float playerSpriteHeight = 48f;
+
+            float bossSpriteWidth = 94f;
+            float bossSpriteHeight = 152f;
 
             batch.setColor(1f, 1f, 1f, 0.5f);
 
             batch.draw(
                 playerSprite,
-                player.getX() - spriteWidth / 2f,
-                player.getY() - spriteHeight / 2f,
-                spriteWidth,
-                spriteHeight
+                player.getX() - playerSpriteWidth / 2f,
+                player.getY() - playerSpriteHeight / 2f,
+                playerSpriteWidth,
+                playerSpriteHeight
             );
 
             batch.setColor(1f, 1f, 1f, 1f);
 
+            batch.draw(
+                bossSprite,
+                enemy.getX() - bossSpriteWidth / 2f,
+                enemy.getY() - bossSpriteHeight / 2f,
+                bossSpriteWidth,
+                bossSpriteHeight
+            );
+
+
             batch.end();
+
+
+            shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+
+            shapeRenderer.circle(
+                player.getX(),
+                player.getY(),
+                5f
+            );
+
+            shapeRenderer.end();
         }
-
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-
-        shapeRenderer.circle(
-            player.getX(),
-            player.getY(),
-            5f
-        );
-
-        shapeRenderer.end();
 
         if (gameStateManager.getGameState() == GameState.GAME_OVER) {
             batch.begin();
@@ -163,6 +181,7 @@ public class Main extends ApplicationAdapter {
         shapeRenderer.dispose();
         batch.dispose();
         font.dispose();
-        sprites.dispose();
+        playerSprite.dispose();
+        bossSprite.dispose();
     }
 }
