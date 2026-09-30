@@ -15,6 +15,7 @@ import com.oscar.danmaku.Bullets.Movement.StraightMovement;
 import com.oscar.danmaku.Bullets.MovementFactory.StraightMovementFactory;
 import com.oscar.danmaku.Entities.Enemy;
 import com.oscar.danmaku.Entities.EntityManager;
+import com.oscar.danmaku.Entities.EntityRenderer;
 import com.oscar.danmaku.Entities.Faction;
 import com.oscar.danmaku.Entities.Player;
 import com.oscar.danmaku.Game.GameState;
@@ -31,12 +32,10 @@ import com.oscar.danmaku.Systems.CollisionSystem;
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Main extends ApplicationAdapter {
 
-    private Texture playerSprite;
-    private Texture bossSprite;
-
     private ShapeRenderer shapeRenderer;
     private SpriteBatch batch;
     private BitmapFont font;
+    private EntityRenderer entityRenderer;
 
     private Player player;
     private Enemy enemy;
@@ -56,20 +55,7 @@ public class Main extends ApplicationAdapter {
     public void create() {
         batch = new SpriteBatch();
         font = new BitmapFont();
-
-        playerSprite = new Texture("Art/Sprites/Player/CirnoSprite.png");
-
-        playerSprite.setFilter(
-            Texture.TextureFilter.Nearest,
-            Texture.TextureFilter.Nearest
-        );
-
-        bossSprite = new Texture("Art/Sprites/Boss/BossFlandreSprite.png");
-
-        bossSprite.setFilter(
-            Texture.TextureFilter.Nearest,
-            Texture.TextureFilter.Nearest
-        );
+        entityRenderer = new EntityRenderer();
 
         shapeRenderer = new ShapeRenderer();
         bulletManager = new BulletManager();
@@ -114,7 +100,6 @@ public class Main extends ApplicationAdapter {
 
             shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
             bulletManager.render(shapeRenderer);
-            entityManager.render(shapeRenderer);
             shapeRenderer.end();
 
             shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
@@ -125,32 +110,7 @@ public class Main extends ApplicationAdapter {
 
             batch.begin();
 
-            float playerSpriteWidth = 36f;
-            float playerSpriteHeight = 48f;
-
-            float bossSpriteWidth = 94f;
-            float bossSpriteHeight = 152f;
-
-            batch.setColor(1f, 1f, 1f, 0.5f);
-
-            batch.draw(
-                playerSprite,
-                player.getX() - playerSpriteWidth / 2f,
-                player.getY() - playerSpriteHeight / 2f,
-                playerSpriteWidth,
-                playerSpriteHeight
-            );
-
-            batch.setColor(1f, 1f, 1f, 1f);
-
-            batch.draw(
-                bossSprite,
-                enemy.getX() - bossSpriteWidth / 2f,
-                enemy.getY() - bossSpriteHeight / 2f,
-                bossSpriteWidth,
-                bossSpriteHeight
-            );
-
+            entityRenderer.render(batch, entityManager);
 
             batch.end();
 
@@ -181,7 +141,5 @@ public class Main extends ApplicationAdapter {
         shapeRenderer.dispose();
         batch.dispose();
         font.dispose();
-        playerSprite.dispose();
-        bossSprite.dispose();
     }
 }
