@@ -2,6 +2,7 @@ package com.oscar.danmaku;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -36,6 +37,7 @@ public class Main extends ApplicationAdapter {
     private SpriteBatch batch;
     private BitmapFont font;
     private EntityRenderer entityRenderer;
+    private Music bossMusic;
 
     private Player player;
     private Enemy enemy;
@@ -56,6 +58,15 @@ public class Main extends ApplicationAdapter {
         batch = new SpriteBatch();
         font = new BitmapFont();
         entityRenderer = new EntityRenderer();
+
+        bossMusic =
+            Gdx.audio.newMusic(
+                Gdx.files.internal("Music/FlandreBossMusic.mp3")
+            );
+
+        bossMusic.setLooping(true);
+        bossMusic.play();
+        bossMusic.setPosition(58f);
 
         shapeRenderer = new ShapeRenderer();
         bulletManager = new BulletManager();
@@ -102,11 +113,10 @@ public class Main extends ApplicationAdapter {
             bulletManager.render(shapeRenderer);
             shapeRenderer.end();
 
-            shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+            shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+            bossHealthRing.update(delta);
             bossHealthRing.render(shapeRenderer, enemy);
             shapeRenderer.end();
-
-
 
             batch.begin();
 

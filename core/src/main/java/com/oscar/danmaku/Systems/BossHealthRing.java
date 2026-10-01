@@ -7,48 +7,12 @@ import com.oscar.danmaku.Entities.Enemy;
 
 public class BossHealthRing {
 
-    private float radiusOffset = 10f;
     private Color color = Color.WHITE;
 
-   public void render(ShapeRenderer shapeRenderer, Enemy boss) {
+    private float[] spectrum = new float[64];
+    private float time;
 
-    float healthPercentage =
-        boss.getHealth() / boss.getMaxHealth();
-
-    healthPercentage = MathUtils.clamp(healthPercentage, 0f, 1f);
-
-    float radius =
-        Math.max(boss.getWidth(), boss.getHeight()) / 2f + 20f;
-
-    float degrees = healthPercentage * 360f;
-
-    float startAngle = 90f;
-
-    int segments = 100;
-
-    for (int i = 0; i < segments; i++) {
-
-        float angle1 =
-            startAngle + (degrees * i / segments);
-
-        float angle2 =
-            startAngle + (degrees * (i + 1) / segments);
-
-        float x1 =
-            boss.getX() + MathUtils.cosDeg(angle1) * radius;
-
-        float y1 =
-            boss.getY() + MathUtils.sinDeg(angle1) * radius;
-
-        float x2 =
-            boss.getX() + MathUtils.cosDeg(angle2) * radius;
-
-        float y2 =
-            boss.getY() + MathUtils.sinDeg(angle2) * radius;
-
-        shapeRenderer.line(x1, y1, x2, y2);
-        }
-    }
+    private Color tempColor = new Color();
 
     public void setColor(Color color) {
         this.color = color;
@@ -58,7 +22,58 @@ public class BossHealthRing {
         return color;
     }
 
-    public void setRadiusOffset(float radiusOffset) {
-        this.radiusOffset = radiusOffset;
+    public void update(float delta) {
+        time += delta;
+
+        for (int i = 0; i < spectrum.length; i++) {
+            spectrum[i] = (MathUtils.sin(time * 5f + i * 0.4f) + 1f) / 2f;
+        }
+    }
+
+    public void render(ShapeRenderer shapeRenderer, Enemy boss) {
+        shapeRenderer.setColor(color);
+
+        float healthPercentage = boss.getHealth() / boss.getMaxHealth();
+        
+        healthPercentage = MathUtils.clamp(healthPercentage, 0f, 1f);
+
+        float radius = 50f;
+
+        float angleStep = 360f / spectrum.length;
+
+        int activeBars = (int)(spectrum.length * healthPercentage);
+
+        for (int i = 0; i < activeBars; i++) {
+
+            float angle = i*angleStep;
+
+            float barHeight = spectrum[i] * 20f;
+        
+            float innerRadius = radius;
+            float outerRadius = radius + barHeight;
+
+            float x1 = boss.getX() + MathUtils.cosDeg(angle) * innerRadius;
+            float y1 = boss.getY() + MathUtils.sinDeg(angle) * innerRadius;
+            float x2 = boss.getX() + MathUtils.cosDeg(angle) * outerRadius;
+            float y2 = boss.getY() + MathUtils.sinDeg(angle) * outerRadius;
+
+            float hue = (time * 80f + (i * 360f / spectrum.length)) % 360f;
+            tempColor.fromHsv(hue, 1f, 1f);
+            shapeRenderer.setColor(tempColor);
+
+            float barWidth = 3f;
+
+            shapeRenderer.rect(
+                x1 - barWidth / 2f,
+                y1,
+                barWidth / 2f,
+                0f,
+                barWidth,
+                barHeight,
+                1f,
+                1f,
+                angle - 90f
+            );
+        }
     }
 }
