@@ -66,7 +66,6 @@ public class Main extends ApplicationAdapter {
 
         bossMusic.setLooping(true);
         bossMusic.play();
-        bossMusic.setPosition(58f);
 
         shapeRenderer = new ShapeRenderer();
         bulletManager = new BulletManager();
@@ -78,7 +77,7 @@ public class Main extends ApplicationAdapter {
 
         player = new Player(300, 100, 10, 10, 250f, "player", 100, 100, 10, 10, Faction.PLAYER, new SpreadShotPattern(90f, 0.25f, new StraightMovementFactory()));
 
-        enemy = new Enemy(300, 400, 80, 140, 250f, "enemy", 100, 100, 10, 10, Faction.ENEMY, new RadialBurstPattern(0.5f, 20, 150f, 15f, new StraightMovementFactory()));
+        enemy = new Enemy(300, 400, 80, 140, 250f, "enemy", 10000, 10000, 10, 10, Faction.ENEMY, new RadialBurstPattern(0.5f, 20, 150f, 15f, new StraightMovementFactory()));
 
         entityManager.addEntity(player);
         entityManager.addEntity(enemy);

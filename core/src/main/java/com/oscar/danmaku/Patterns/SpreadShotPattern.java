@@ -6,6 +6,7 @@ import com.oscar.danmaku.Bullets.Movement.BulletMovement;
 import com.oscar.danmaku.Bullets.Movement.StraightMovement;
 import com.oscar.danmaku.Bullets.MovementFactory.BulletMovementFactory;
 import com.oscar.danmaku.Entities.Entity;
+import com.oscar.danmaku.Entities.Player;
 
 public class SpreadShotPattern implements AttackPattern {
     private BulletMovementFactory movementFactory;
@@ -32,7 +33,11 @@ public class SpreadShotPattern implements AttackPattern {
                     float redirectX = MathUtils.cosDeg(angle);
                     float redirectY = MathUtils.sinDeg(angle);
 
-                    bulletManager.spawn(entity.getX(), entity.getY(), 400, 5, 5, entity.getFaction(), 10, redirectX, redirectY, movementFactory.create()); 
+                    if (entity instanceof Player) {
+                        bulletManager.spawn(entity.getX(), entity.getY(), 400, 7, 7, entity.getFaction(), 10, redirectX, redirectY, movementFactory.create()); 
+                    } else {
+                        bulletManager.spawn(entity.getX(), entity.getY(), 150, 10, 15, entity.getFaction(), 10, redirectX, redirectY, movementFactory.create());  
+                    }
 
                 }
                 shootTimer = 0;     

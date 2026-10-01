@@ -23,34 +23,42 @@ public class BossPhaseManager {
 
     private Entity target;
 
+    private AttackPattern phase1Pattern;
+    private AttackPattern phase2Pattern;
+    private AttackPattern phase3Pattern;
+
     public BossPhaseManager(Entity target) {
         this.target = target;
 
-        aimedSpreadPattern = new AimedSpreadPattern(target, 0.5f, 5, 200f, new StraightMovementFactory());
+        phase1Pattern = new CompositeAttackPattern(
+            new AimedSpreadPattern(target, 0.5f, 5, 200f,       new StraightMovementFactory()),
+            new RadialBurstPattern(0.5f, 20, 150f, 15f, new StraightMovementFactory()));
 
-        /* 
-        phase3Pattern = new CompositeAttackPattern(new RadialBurstPattern(1.0f, 16, 150f, 10f, new StraightMovementFactory()), new AimedSpreadPattern(target, 0.5f, 5, 200f, new StraightMovementFactory()));
-        */
+        phase2Pattern = new CompositeAttackPattern(
+            new SpiralBurstPattern(0.10f, 130f, 10f, 0f,
+                new SineMovementFactory(5f, 1f)),
 
-        phase3Pattern = new StraightShotPattern(0, -1, 1f, new HomingMovementFactory(target, 180f));
+            new SpiralBurstPattern(0.10f, 130f, 10f, 90f,
+                new SineMovementFactory(5f, 1f)),
+
+            new SpiralBurstPattern(0.10f, 130f, 10f, 180f,
+                new SineMovementFactory(5f, 1f)),
+
+            new SpiralBurstPattern(0.10f, 130f, 10f, 270f,
+                new SineMovementFactory(5f, 1f)),
+            new StraightShotPattern(0, -1, 1f, 
+                new HomingMovementFactory(target, 180f)),
+            new SpreadShotPattern(270f, 0.5f, 
+                new StraightMovementFactory())
+            );
+
+        phase3Pattern = new CompositeAttackPattern(
+            new RadialBurstPattern(0.5f, 20, 60f, 15f, new StraightMovementFactory()),
+            new RadialBurstPattern(0.5f, 20, 120f, 67f, new StraightMovementFactory()),
+            new RadialBurstPattern(0.5f, 20, 90f, 99f, new StraightMovementFactory()),
+            new RadialBurstPattern(0.7f, 8, 150f, 77f, new StraightMovementFactory())
+        );
     }
-
-    private AimedSpreadPattern aimedSpreadPattern;
-    private AttackPattern phase3Pattern;
-
-    private AttackPattern phase2Pattern = new CompositeAttackPattern(
-        new SpiralBurstPattern(0.10f, 130f, 10f, 0f,
-            new SineMovementFactory(5f, 1f)),
-
-        new SpiralBurstPattern(0.10f, 130f, 10f, 90f,
-            new SineMovementFactory(5f, 1f)),
-
-        new SpiralBurstPattern(0.10f, 130f, 10f, 180f,
-            new SineMovementFactory(5f, 1f)),
-
-        new SpiralBurstPattern(0.10f, 130f, 10f, 270f,
-            new SineMovementFactory(5f, 1f))
-    );
 
     public int getCurrentPhase() {
         return currentPhase;
@@ -62,6 +70,10 @@ public class BossPhaseManager {
             currentPhase = 2;
             bulletManager.clear();
             boss.setAttackPattern(phase2Pattern);
+        }
+
+        if (currentPhase == 1) {
+            boss.setAttackPattern(phase1Pattern);
         }
 
         if (currentPhase == 2 && boss.getHealth() < (boss.getMaxHealth() * 0.4)) {

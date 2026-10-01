@@ -8,7 +8,7 @@ public class HomingMovement implements BulletMovement{
     
     private Entity target;
     private float turnSpeed;
-    private float homingDuration = 1f;
+    private float homingDuration = 0.65f;
     private float elapsedTime;
     
     public HomingMovement(Entity target, float turnSpeed) {
