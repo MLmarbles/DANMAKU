@@ -58,7 +58,7 @@ public class BossHealthRing {
             float y2 = boss.getY() + MathUtils.sinDeg(angle) * outerRadius;
 
             float hue = (time * 80f + (i * 360f / spectrum.length)) % 360f;
-            tempColor.fromHsv(hue, 0.5f, 1f);
+            tempColor.fromHsv(hue, 0.7f, 1f);
             shapeRenderer.setColor(tempColor);
 
             float barWidth = 3f;

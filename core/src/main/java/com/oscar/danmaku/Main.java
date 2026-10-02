@@ -29,6 +29,7 @@ import com.oscar.danmaku.Systems.AttackSystem;
 import com.oscar.danmaku.Systems.BossHealthRing;
 import com.oscar.danmaku.Systems.BossPhaseManager;
 import com.oscar.danmaku.Systems.CollisionSystem;
+import com.oscar.danmaku.Systems.PhaseTransitionEffect;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Main extends ApplicationAdapter {
@@ -38,6 +39,7 @@ public class Main extends ApplicationAdapter {
     private BitmapFont font;
     private EntityRenderer entityRenderer;
     private Music bossMusic;
+    private PhaseTransitionEffect phaseTransitionEffect;
 
     private Player player;
     private Enemy enemy;
@@ -58,6 +60,7 @@ public class Main extends ApplicationAdapter {
         batch = new SpriteBatch();
         font = new BitmapFont();
         entityRenderer = new EntityRenderer();
+        phaseTransitionEffect = new PhaseTransitionEffect();
 
         bossMusic =
             Gdx.audio.newMusic(
@@ -66,6 +69,7 @@ public class Main extends ApplicationAdapter {
 
         bossMusic.setLooping(true);
         bossMusic.play();
+        bossMusic.setPosition(58f);
 
         shapeRenderer = new ShapeRenderer();
         bulletManager = new BulletManager();
@@ -77,7 +81,7 @@ public class Main extends ApplicationAdapter {
 
         player = new Player(300, 100, 10, 10, 250f, "player", 100, 100, 10, 10, Faction.PLAYER, new SpreadShotPattern(90f, 0.25f, new StraightMovementFactory()));
 
-        enemy = new Enemy(300, 400, 80, 140, 250f, "enemy", 10000, 10000, 10, 10, Faction.ENEMY, new RadialBurstPattern(0.5f, 20, 150f, 15f, new StraightMovementFactory()));
+        enemy = new Enemy(300, 400, 80, 140, 250f, "enemy", 7500, 7500, 10, 10, Faction.ENEMY, new RadialBurstPattern(0.5f, 20, 150f, 15f, new StraightMovementFactory()));
 
         entityManager.addEntity(player);
         entityManager.addEntity(enemy);
@@ -108,6 +112,12 @@ public class Main extends ApplicationAdapter {
 
             bossPhaseManager.update(enemy, bulletManager);
 
+            int phaseNumber = bossPhaseManager.update(enemy, bulletManager);
+            if (phaseNumber != phaseTransitionEffect.getPhaseNumber()) {
+                phaseTransitionEffect.trigger(phaseNumber);
+            }
+            phaseTransitionEffect.update(delta);
+
             shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
             bulletManager.render(shapeRenderer);
             shapeRenderer.end();
@@ -118,20 +128,20 @@ public class Main extends ApplicationAdapter {
             shapeRenderer.end();
 
             batch.begin();
-
             entityRenderer.render(batch, entityManager);
-
             batch.end();
 
+            batch.begin();
+            entityRenderer.render(batch, entityManager);
+            phaseTransitionEffect.render(batch);
+            batch.end();
 
             shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-
             shapeRenderer.circle(
                 player.getX(),
                 player.getY(),
                 5f
             );
-
             shapeRenderer.end();
         }
 
@@ -150,5 +160,6 @@ public class Main extends ApplicationAdapter {
         shapeRenderer.dispose();
         batch.dispose();
         font.dispose();
+        phaseTransitionEffect.dispose();
     }
 }

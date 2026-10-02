@@ -64,22 +64,26 @@ public class BossPhaseManager {
         return currentPhase;
     }
 
-    public void update(Enemy boss, BulletManager bulletManager) {
+    public int update(Enemy boss, BulletManager bulletManager) {
 
         if (currentPhase == 1 && boss.getHealth() < (boss.getMaxHealth() * 0.7)) {
             currentPhase = 2;
             bulletManager.clear();
             boss.setAttackPattern(phase2Pattern);
+            return 2;
         }
 
         if (currentPhase == 1) {
             boss.setAttackPattern(phase1Pattern);
+            return 1;
         }
 
         if (currentPhase == 2 && boss.getHealth() < (boss.getMaxHealth() * 0.4)) {
             currentPhase = 3;
             bulletManager.clear();
             boss.setAttackPattern(phase3Pattern);
+            return 3;
         }
+        return 67;
     }
 }
