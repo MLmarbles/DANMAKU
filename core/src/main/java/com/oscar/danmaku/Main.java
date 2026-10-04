@@ -72,6 +72,7 @@ public class Main extends ApplicationAdapter {
 
         bossMusic.setLooping(true);
         bossMusic.play();
+        bossMusic.setVolume(0.5f);
         bossMusic.setPosition(58f);
 
         shapeRenderer = new ShapeRenderer();
