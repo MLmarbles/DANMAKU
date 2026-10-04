@@ -38,6 +38,11 @@ public class Enemy extends Entity {
     }
 
     @Override
+    public boolean wantsToBomb() {
+        return false;
+    }
+
+    @Override
     public void update(float delta) {
         move(delta);
     }

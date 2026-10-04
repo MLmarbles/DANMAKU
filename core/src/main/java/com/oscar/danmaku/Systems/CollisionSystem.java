@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.math.Rectangle;
+import com.oscar.danmaku.Bombs.MasterSpark;
 import com.oscar.danmaku.Bullets.Bullet;
 import com.oscar.danmaku.Bullets.BulletManager;
 import com.oscar.danmaku.Entities.Entity;
@@ -47,6 +48,35 @@ public class CollisionSystem {
 
         for (Bullet bullet : bulletsToRemove) {
             bulletManager.removeBullet(bullet);
+        }
+    }
+
+    public void inspectBombCollision(MasterSpark bomb, EntityManager entityManager) {
+        if (!bomb.isActive()) {
+            return;
+        }
+
+        if (!bomb.isFullyCharged()) {
+            return;
+        }
+
+        if (!bomb.canDamage()) {
+            return;
+        }
+
+        Rectangle bombBounds = bomb.getBeamBounds();
+
+        for (Entity entity : entityManager.getEntities()) {
+
+            if (entity.getFaction() == bomb.getEntity().getFaction()) {
+                continue;
+            }
+
+            Rectangle recEntity = new Rectangle(entity.getX() - entity.getWidth() / 2, entity.getY() - entity.getHeight() / 2, entity.getWidth(), entity.getHeight());
+
+            if (bombBounds.overlaps(recEntity)) {
+                entity.takeDamage(25f);
+            }
         }
     }
 }

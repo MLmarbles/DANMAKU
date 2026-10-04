@@ -58,6 +58,11 @@ public class Player extends Entity{
     }
 
     @Override
+    public boolean wantsToBomb() {
+        return Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT);
+    }
+
+    @Override
     public void update(float delta) {
         move(delta);
     }

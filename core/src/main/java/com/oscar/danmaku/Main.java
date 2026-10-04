@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.oscar.danmaku.Bombs.MasterSpark;
 import com.oscar.danmaku.Bullets.Bullet;
 import com.oscar.danmaku.Bullets.BulletManager;
 import com.oscar.danmaku.Bullets.Movement.StraightMovement;
@@ -55,6 +56,8 @@ public class Main extends ApplicationAdapter {
     private BossPhaseManager bossPhaseManager;
     private BossHealthRing bossHealthRing;
 
+    private MasterSpark masterSpark;
+
     @Override
     public void create() {
         batch = new SpriteBatch();
@@ -68,7 +71,7 @@ public class Main extends ApplicationAdapter {
             );
 
         bossMusic.setLooping(true);
-        bossMusic.play();
+        //bossMusic.play();
         bossMusic.setPosition(58f);
 
         shapeRenderer = new ShapeRenderer();
@@ -80,6 +83,8 @@ public class Main extends ApplicationAdapter {
         bossHealthRing = new BossHealthRing();
 
         player = new Player(300, 100, 10, 10, 250f, "player", 100, 100, 10, 10, Faction.PLAYER, new SpreadShotPattern(90f, 0.25f, new StraightMovementFactory()));
+
+        masterSpark = new MasterSpark(player);
 
         enemy = new Enemy(300, 400, 80, 140, 250f, "enemy", 7500, 7500, 10, 10, Faction.ENEMY, new RadialBurstPattern(0.5f, 20, 150f, 15f, new StraightMovementFactory()));
 
@@ -112,6 +117,10 @@ public class Main extends ApplicationAdapter {
 
             bossPhaseManager.update(enemy, bulletManager);
 
+            masterSpark.activate();
+            masterSpark.update(delta);
+            collisionSystem.inspectBombCollision(masterSpark, entityManager);
+
             int phaseNumber = bossPhaseManager.update(enemy, bulletManager);
             if (phaseNumber != phaseTransitionEffect.getPhaseNumber()) {
                 phaseTransitionEffect.trigger(phaseNumber);
@@ -120,6 +129,10 @@ public class Main extends ApplicationAdapter {
 
             shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
             bulletManager.render(shapeRenderer);
+            shapeRenderer.end();
+
+            shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+            masterSpark.render(shapeRenderer);
             shapeRenderer.end();
 
             shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);

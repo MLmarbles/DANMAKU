@@ -22,6 +22,8 @@ public abstract class Entity{
 
     private AttackPattern attackPattern;
 
+    private int bombs = 1;
+
     public Entity(float x, float y, float width, float height, float speed, String name, float health, float maxHealth, float defence, float attackPower, Faction faction, AttackPattern attackPattern) {
         this.x = x;
         this.y = y;
@@ -40,6 +42,15 @@ public abstract class Entity{
 
     public abstract void update(float delta);
     public abstract boolean wantsToShoot();
+    public abstract boolean wantsToBomb();
+
+    public int getBombs() {
+        return bombs;
+    }
+
+    public void setBombs(int bombs) {
+        this.bombs = bombs;
+    }
 
     public float getX() {
         return x;
