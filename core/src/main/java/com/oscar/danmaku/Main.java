@@ -71,7 +71,7 @@ public class Main extends ApplicationAdapter {
             );
 
         bossMusic.setLooping(true);
-        //bossMusic.play();
+        bossMusic.play();
         bossMusic.setPosition(58f);
 
         shapeRenderer = new ShapeRenderer();
@@ -120,6 +120,12 @@ public class Main extends ApplicationAdapter {
             masterSpark.activate();
             masterSpark.update(delta);
             collisionSystem.inspectBombCollision(masterSpark, entityManager);
+
+            if (masterSpark.isActive()) {
+                bossMusic.pause();
+            } else if (!bossMusic.isPlaying()) {
+                bossMusic.play();
+            }
 
             int phaseNumber = bossPhaseManager.update(enemy, bulletManager);
             if (phaseNumber != phaseTransitionEffect.getPhaseNumber()) {
