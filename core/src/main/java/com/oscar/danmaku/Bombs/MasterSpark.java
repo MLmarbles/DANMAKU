@@ -70,7 +70,7 @@ public class MasterSpark {
     }
 
     public boolean isFullyCharged() {
-        return timer >= chargeDuration/2;
+        return timer >= chargeDuration;
     }
     
     public void update(float delta) {
@@ -116,7 +116,7 @@ public class MasterSpark {
 
         float chargeProgress = MathUtils.clamp(timer / duration, 0f, 1f);
 
-        float currentBeamWidth = beamWidth * chargeProgress;
+        float currentBeamWidth = beamWidth * chargeProgress * 0.33f;
 
         if (timer > (chargeDuration)) {
             currentBeamWidth = beamWidth;

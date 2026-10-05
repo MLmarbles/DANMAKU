@@ -79,4 +79,31 @@ public class CollisionSystem {
             }
         }
     }
+
+    public void inspectBombBulletCollision(MasterSpark bomb, BulletManager bulletManager) {
+        
+        List<Bullet> bullets = bulletManager.getBullets();
+        List<Bullet> bulletsToRemove = new ArrayList<>();
+
+        for (Bullet bullet : bullets) {
+            if (bullet.getFaction() == bomb.getEntity().getFaction()) {
+                continue;
+            }
+
+            if (bomb.isActive() && bomb.isFullyCharged()) {
+                Rectangle bombBounds = bomb.getBeamBounds();
+
+                Rectangle recBullet = new Rectangle(bullet.getX(), bullet.getY(), bullet.getWidth(), bullet.getHeight());
+
+                if (bombBounds.overlaps(recBullet)) {
+                    bulletsToRemove.add(bullet);
+                }
+            }
+
+        }
+
+        for (Bullet bullet : bulletsToRemove) {
+            bulletManager.removeBullet(bullet);
+        }
+    }
 }

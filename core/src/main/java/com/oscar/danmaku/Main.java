@@ -121,6 +121,7 @@ public class Main extends ApplicationAdapter {
             masterSpark.activate();
             masterSpark.update(delta);
             collisionSystem.inspectBombCollision(masterSpark, entityManager);
+            collisionSystem.inspectBombBulletCollision(masterSpark, bulletManager);
 
             if (masterSpark.isActive()) {
                 bossMusic.pause();
