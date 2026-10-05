@@ -12,6 +12,7 @@ public class Player extends Entity{
         Gdx.files.internal("Music/CirnoBakaLines.mp3")
     );
 
+    private float movementSpeed = 1f;
 
     public Player(float x, float y, float width, float height, float speed, String name, float health, float maxHealth, float defence, float attackPower, Faction faction, AttackPattern attackPattern){
 
@@ -42,19 +43,19 @@ public class Player extends Entity{
         float yMovement = 0;
 
         if (Gdx.input.isKeyPressed(Input.Keys.W)) {
-            yMovement += getSpeed() * delta;
+            yMovement += getSpeed() * delta * movementSpeed;
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-            xMovement -= getSpeed() * delta;
+            xMovement -= getSpeed() * delta * movementSpeed;
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.S)) {
-            yMovement -= getSpeed() * delta;
+            yMovement -= getSpeed() * delta * movementSpeed;
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-            xMovement += getSpeed() * delta;
+            xMovement += getSpeed() * delta * movementSpeed;
         }
 
         super.move(xMovement, yMovement);
@@ -79,17 +80,18 @@ public class Player extends Entity{
 
     @Override
     public boolean wantsToBomb() {
-        return Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT);
+        return Gdx.input.isKeyPressed(Input.Keys.E);
     }
 
     @Override
     public void update(float delta) {
         move(delta);
+        focus();
         taunt();
     }
 
     public void taunt() {
-        if (Gdx.input.isKeyPressed(Input.Keys.T)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.F)) {
             if (!cirnoTaunts.isPlaying()) {
                 int[] voiceLine = baka[(int)(Math.random() * baka.length)];
                 cirnoTaunts.play();
@@ -101,6 +103,14 @@ public class Player extends Entity{
         if (cirnoTaunts.isPlaying() && cirnoTaunts.getPosition() >= tauntStopTime) {
             cirnoTaunts.stop();
             tauntStopTime = -1f;
+        }
+    }
+
+    public void focus() {
+        if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
+            movementSpeed = 0.75f;
+        } else {
+            movementSpeed = 1f;
         }
     }
 
